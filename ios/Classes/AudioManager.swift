@@ -66,9 +66,13 @@ open class AudioManager: NSObject {
                 command.togglePlayPauseCommand.isEnabled = false
                 command.nextTrackCommand.isEnabled = false
                 command.previousTrackCommand.isEnabled = false
+            } else {
+                command.playCommand.isEnabled = true
+                command.pauseCommand.isEnabled = true
+                command.togglePlayPauseCommand.isEnabled = true
+                command.nextTrackCommand.isEnabled = hasNext
+                command.previousTrackCommand.isEnabled = hasPrev
             }
-            command.nextTrackCommand.isEnabled = hasNext
-            command.previousTrackCommand.isEnabled = hasPrev
         } else {
             command.pauseCommand.removeTarget(self)
             command.playCommand.removeTarget(self)
