@@ -14,6 +14,7 @@ open class AudioManager: NSObject {
 
     open var hasNext: Bool = false
     open var hasPrev: Bool = false
+    open var buffering: Bool = false
 
     open var playing: Bool = false
 
@@ -58,6 +59,13 @@ open class AudioManager: NSObject {
                 //self.stopPlayer()
                 self.onEvents?("prev")
                 return .success
+            }
+            if self.buffering {
+                command.playCommand.isEnabled = false
+                command.pauseCommand.isEnabled = false
+                command.togglePlayPauseCommand.isEnabled = false
+                command.nextTrackCommand.isEnabled = false
+                command.previousTrackCommand.isEnabled = false
             }
             command.nextTrackCommand.isEnabled = hasNext
             command.previousTrackCommand.isEnabled = hasPrev

@@ -42,6 +42,7 @@ public class SwiftAudioManagerPlugin: NSObject, FlutterPlugin {
             case "show":
                 AudioManager.default.hasNext = arguments["hasNext"] as? Bool ?? false
                 AudioManager.default.hasPrev = arguments["hasPrev"] as? Bool ?? false
+                AudioManager.default.buffering = arguments["buffering"] as? Bool ?? false
                 AudioManager.default.setupRemoteCommandHandler(enabled: true)
             case "hide":
                 AudioManager.default.setupRemoteCommandHandler(enabled: false)

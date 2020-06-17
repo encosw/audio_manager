@@ -17,11 +17,13 @@ class AudioManagerSimple {
   }
 
   static Future showNotification(
-      {bool hasNext = false, bool hasPrev = false}) async {
+      {bool hasNext = false,
+      bool hasPrev = false,
+      bool buffering = false}) async {
     try {
       _channel.setMethodCallHandler(_utilsHandler);
-      await _channel
-          .invokeListMethod("show", {"hasNext": hasNext, "hasPrev": hasPrev});
+      await _channel.invokeListMethod("show",
+          {"hasNext": hasNext, "hasPrev": hasPrev, "buffering": buffering});
     } catch (error) {
       print("Failed to play on iOS: ${error.message}");
     }
