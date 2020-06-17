@@ -29,6 +29,24 @@ class AudioManagerSimple {
     }
   }
 
+  static Future enableControls() async {
+    try {
+      _channel.setMethodCallHandler(_utilsHandler);
+      await _channel.invokeListMethod("enableControls");
+    } catch (error) {
+      print("Failed disabling controls on iOS: ${error.message}");
+    }
+  }
+
+  static Future disableControls() async {
+    try {
+      _channel.setMethodCallHandler(_utilsHandler);
+      await _channel.invokeListMethod("disableControls");
+    } catch (error) {
+      print("Failed enabling controls on iOS: ${error.message}");
+    }
+  }
+
   static Future hide() async {
     try {
       _channel.setMethodCallHandler(_utilsHandler);

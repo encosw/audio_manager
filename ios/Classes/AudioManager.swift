@@ -60,19 +60,8 @@ open class AudioManager: NSObject {
                 self.onEvents?("prev")
                 return .success
             }
-            if self.buffering {
-                command.playCommand.isEnabled = false
-                command.pauseCommand.isEnabled = false
-                command.togglePlayPauseCommand.isEnabled = false
-                command.nextTrackCommand.isEnabled = false
-                command.previousTrackCommand.isEnabled = false
-            } else {
-                command.playCommand.isEnabled = true
-                command.pauseCommand.isEnabled = true
-                command.togglePlayPauseCommand.isEnabled = true
-                command.nextTrackCommand.isEnabled = hasNext
-                command.previousTrackCommand.isEnabled = hasPrev
-            }
+            command.nextTrackCommand.isEnabled = hasNext
+            command.previousTrackCommand.isEnabled = hasPrev
         } else {
             command.pauseCommand.removeTarget(self)
             command.playCommand.removeTarget(self)
@@ -84,6 +73,24 @@ open class AudioManager: NSObject {
                 command.previousTrackCommand.removeTarget(self)
             }
         }
+    }
+
+    func enableControls() {
+        let command = MPRemoteCommandCenter.shared()
+        command.playCommand.isEnabled = true
+        command.pauseCommand.isEnabled = true
+        command.togglePlayPauseCommand.isEnabled = true
+        command.nextTrackCommand.isEnabled = hasNext
+        command.previousTrackCommand.isEnabled = hasPrev
+    }
+
+    func disableControls() {
+        let command = MPRemoteCommandCenter.shared()
+        command.playCommand.isEnabled = false
+        command.pauseCommand.isEnabled = false
+        command.togglePlayPauseCommand.isEnabled = false
+        command.nextTrackCommand.isEnabled = false
+        command.previousTrackCommand.isEnabled = false
     }
 
     func setRemoteInfo(title: String, artist: String, duration: Int, currentPosition: Int) {
